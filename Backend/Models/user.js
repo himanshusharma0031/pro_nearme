@@ -1,9 +1,6 @@
-const express = require('express');
 const  mongoose = require('mongoose');
 
-mongoose.connect("mongodb://localhost:27017/Utility-Management-System");
-
-const schema = mongoose.Schema({
+const schema = new mongoose.Schema({
 
     name:{
         type:String,
@@ -26,6 +23,6 @@ const schema = mongoose.Schema({
 
 });
 
-const User = new mongoose.model("User",schema);
+const User =  mongoose.model("User",schema);
 
 module.exports  = User;
