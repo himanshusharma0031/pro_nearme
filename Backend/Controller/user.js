@@ -1,5 +1,6 @@
 const User = require('../Models/user');
 const bcrypt = require ('bcryptjs');
+const generatetoken = require('../config/genratetoken');
 
 const Signup = async (req,res) =>{
 const {name,email,password,location} = req.body;
@@ -23,9 +24,17 @@ const user = await User.create({
     password,
     location,
 
+
 });
 
-res.json(user);
+res.json(
+    {_id:user._id,
+            name:user.name,
+            email:user.email,
+            password:user.password,
+            token:generatetoken(user._id)
+}
+);
 }
 
 catch (error) {
