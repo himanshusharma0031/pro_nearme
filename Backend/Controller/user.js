@@ -1,4 +1,6 @@
 const User = require('../Models/user');
+const Provider = require('../Models/provider');
+
 const bcrypt = require ('bcryptjs');
 const generatetoken = require('../config/genratetoken');
 
@@ -68,6 +70,22 @@ console.log(error);
 
 }
 
-}
+};
 
-module.exports = {Signup,login}
+const getallproviders = async(req,res)=>{
+    try{
+        const allproviders = await Provider.find({location:req.params.location});
+        if(allproviders){
+            res.status(200).json(allproviders);
+
+        }
+
+    }
+    catch(error){
+res.json(error);
+
+    }
+};
+
+
+module.exports = {Signup,login,getallproviders}

@@ -71,6 +71,8 @@ console.log(error);
 
 }
 
-}
+};
+
+
 
 module.exports = {Signup,login}

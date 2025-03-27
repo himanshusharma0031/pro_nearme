@@ -6,5 +6,4 @@ Router.post('/signup',Signup);
 Router.post('/login',login);
 
 
-
 module.exports = Router;

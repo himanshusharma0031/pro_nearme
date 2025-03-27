@@ -1,10 +1,11 @@
 const express = require('express');
-const {Signup,login} = require('../Controller/user');
+const {Signup,login, getallproviders} = require('../Controller/user');
+const auth = require('../middleware/auth');
 const Router = express.Router();
 
 Router.post('/signup',Signup);
 Router.post('/login',login);
-
+Router.get('/allproviders/:location', auth, getallproviders);
 
 
 module.exports = Router;
