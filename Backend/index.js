@@ -5,6 +5,9 @@ const UserRoutes = require('./Routes/user');
 const ProviderRoutes = require('./Routes/povider');
   const app = express();
   const port = process.env.PORT || 5000; 
+  const cors = require("cors");
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+
   app.use(express.json());
 
   app.use('/',UserRoutes);
