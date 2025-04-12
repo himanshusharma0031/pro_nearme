@@ -19,6 +19,9 @@ const schema = new mongoose.Schema({
     location:{
         type:String
     },
+    city:{
+        type:String,
+    },
 
     bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: "booking" }],
   

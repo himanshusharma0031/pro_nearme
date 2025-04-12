@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const schema  = new mongoose.Schema({
     name:{
@@ -16,6 +17,10 @@ const schema  = new mongoose.Schema({
     location:{
         type:String
     },
+    city:{
+        type:String
+    },
+    
     serviceType:{
         type:String
     },
@@ -27,15 +32,16 @@ const schema  = new mongoose.Schema({
 
 });
 
-schema.pre('save',async (next)=>{
-     if (!this.isModified) {
-         next();
-      
-        }
-      
-        const salt = await bcrypt.genSalt(10);
-        this.password =  await bcrypt.hash(this.password,salt);
-})
+schema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+});
+
 
 const Provider = mongoose.model('provider',schema);
 

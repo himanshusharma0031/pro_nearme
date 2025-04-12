@@ -3,8 +3,8 @@ const bcrypt = require ('bcryptjs');
 const generatetoken = require('../config/genratetoken');
 
 const Signup = async (req,res) =>{
-const {name,email,password,location,serviceType} = req.body;
-if(!email || !name || !password || !location ||!serviceType){
+const {name,email,password,location,city,serviceType} = req.body;
+if(!email || !name || !password || !location || !city||!serviceType){
     res.status(400).json("please enter all fields");
 return ;
 }
@@ -23,6 +23,7 @@ const user = await Provider.create({
     email,
     password,
     location,
+    city,
     serviceType
 
 
@@ -35,6 +36,7 @@ res.json(
             password:user.password,
             location:user.location,
             serviceType:user.serviceType,
+            city:user.city,
             token:generatetoken(user._id)
 }
 );
@@ -57,7 +59,6 @@ if(!email || !password){
 
 try{
 const user = await Provider.findOne({email});
-
 if(user && (await bcrypt.compare(password,user.password))){
 res.status(200).json(user);
 

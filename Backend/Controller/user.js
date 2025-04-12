@@ -5,7 +5,7 @@ const bcrypt = require ('bcryptjs');
 const generatetoken = require('../config/genratetoken');
 
 const Signup = async (req,res) =>{
-const {name,email,password,location} = req.body;
+const {name,email,password,location,city} = req.body;
 if(!email || !name || !password ){
     res.status(400).json("please enter all fields");
 return ;
@@ -25,6 +25,7 @@ const user = await User.create({
     email,
     password,
     location,
+    city
 
 
 });
