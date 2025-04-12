@@ -95,6 +95,60 @@ res.json(error);
 
     }
 };
+const providerProfile = async(req,res)=>{
+    try {
+        const provider = await Provider.findById(req.params.id);
+
+        if(!provider){
+            res.status(400).json("No Provider Found");
+            return;
+        }
+
+            res.json({
+                name:provider.name,
+                email:provider.email,
+                location:provider.location,
+                serviceType:provider.serviceType
+            });
 
 
-module.exports = {Signup,login,getallproviders}
+    
+    } catch (error) {
+        
+    }
+
+};
+
+const providerAvailability = async(req,res)=>{
+    const {date,time} = req.body;
+try{
+    const provider  = await Provider.findById(req.params.id);
+    if (!provider) {
+        return res.status(404).json({ message: "Provider not found" });
+      }
+
+    const dayAvailability = provider.availability.find(avail => avail.date === date);
+
+    if (!dayAvailability) {
+        return res.status(404).json({ message: "No availability found for the selected date" });
+      }
+
+      const isAvailable = dayAvailability.timeSlots.includes(time);
+
+      if (isAvailable) {
+        return res.status(200).json({ available: true, message: "Time slot is available" });
+      } else {
+        return res.status(200).json({ available: false, message: "Time slot is not available" });
+      }
+
+
+    }
+    catch(error){
+        console.error("Error checking availability:", error);
+        res.status(500).json({ message: "Server error" });
+    }
+
+}
+
+
+module.exports = {Signup,login,getallproviders,providerProfile,providerAvailability}
