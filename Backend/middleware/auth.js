@@ -13,7 +13,7 @@ const auth = async (req, res, next) => {
         token = token.split(" ")[1];
 
         const user = jwt.verify(token, secret);
-        req.user = user; t
+        req.user = user; 
 
         next(); 
     } catch (error) {

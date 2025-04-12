@@ -5,7 +5,7 @@ const Router = express.Router();
 
 Router.post('/signup',Signup);
 Router.post('/login',login);
-Router.get('/allproviders/:location', auth, getallproviders);
+Router.get('/allproviders',  auth,getallproviders);
 
 
 module.exports = Router;
