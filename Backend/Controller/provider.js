@@ -83,14 +83,30 @@ const booking = async(req,res)=>{
     return res.status(400).json("No booking ");
     }
     res.json(booking);
+  
 }
 catch(error){
     res.json(error);
 }
 
+};
 
+const bookingUpdate =async(req,res)=>{
+    const {status}= req.body;
+    const bookingId = req.params.id;
 
+    const response = await Booking.findByIdAndUpdate(bookingId,
+        {status},
+        {new:true}
+        );
+        if(!response){
+            res.status(400).json("booking failed");
+        }
+    
+        res.json(response);
+    
 }
 
 
-module.exports = {Signup,login,booking}
+
+module.exports = {Signup,login,booking,bookingUpdate}
