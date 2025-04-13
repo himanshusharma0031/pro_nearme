@@ -1,5 +1,6 @@
 const User = require('../Models/user');
 const Provider = require('../Models/provider');
+const Booking = require('../Models/booking');
 
 const bcrypt = require ('bcryptjs');
 const generatetoken = require('../config/genratetoken');
@@ -119,26 +120,30 @@ const providerProfile = async(req,res)=>{
 
 };
 
-const providerAvailability = async(req,res)=>{
-    const {date,time} = req.body;
+const providerAvailability = async(date,time,providerId)=>{
 try{
-    const provider  = await Provider.findById(req.params.id);
+    const provider  = await Provider.findById(providerId);
     if (!provider) {
-        return res.status(404).json({ message: "Provider not found" });
+        return false;
+        // return res.status(404).json({ message: "Provider not found" });
       }
 
     const dayAvailability = provider.availability.find(avail => avail.date === date);
 
     if (!dayAvailability) {
-        return res.status(404).json({ message: "No availability found for the selected date" });
+        return false;
+        // return res.status(404).json({ message: "No availability found for the selected date" });
       }
 
       const isAvailable = dayAvailability.timeSlots.includes(time);
 
       if (isAvailable) {
-        return res.status(200).json({ available: true, message: "Time slot is available" });
+        return dayAvailability.timeSlots.includes(time);
+        
+        // return res.status(200).json({ available: true, message: "Time slot is available" });
       } else {
-        return res.status(200).json({ available: false, message: "Time slot is not available" });
+        return false ;
+        // return res.status(200).json({ available: false, message: "Time slot is not available" });
       }
 
 
@@ -148,7 +153,40 @@ try{
         res.status(500).json({ message: "Server error" });
     }
 
-}
+};
+
+const providerbooking = async(req,res)=>{
+    const {date,time}=req.body;
+
+    try{
+      const   isAvailable = await providerAvailability(date,time,req.params.id);
+        if(!isAvailable){
+            return res.status(400).json({ message: "Time slot is not available" });
+        }
+
+        const booking  =await  Booking.create({
+            userId:req.user.id,
+            providerId:req.params.id,
+            date:date,
+            time:time
+        });
+
+        if(!booking){
+           return  res.status(400).json({message:"booking failed"});
+        }
+        res.status(200).json(booking);
+
+        
 
 
-module.exports = {Signup,login,getallproviders,providerProfile,providerAvailability}
+    }
+    catch(error){
+        res.json(error);
+    }
+
+
+};
+
+
+
+module.exports = {Signup,login,getallproviders,providerProfile,providerAvailability,providerbooking}

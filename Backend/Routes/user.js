@@ -1,5 +1,5 @@
 const express = require('express');
-const {Signup,login, getallproviders, providerProfile, providerAvailability} = require('../Controller/user');
+const {Signup,login, getallproviders, providerProfile, providerAvailability, providerbooking} = require('../Controller/user');
 const auth = require('../middleware/auth');
 const Router = express.Router();
 
@@ -8,6 +8,8 @@ Router.post('/login',login);
 Router.get('/allproviders',  auth,getallproviders);
 Router.get('/provider/:id',  auth,providerProfile);
 Router.post('/provider/:id/availability',  auth,providerAvailability);
+Router.post('/provider/:id/booking',  auth,providerbooking);
+
 	
 
 
