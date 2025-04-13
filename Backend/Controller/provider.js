@@ -1,6 +1,7 @@
 const Provider = require('../Models/provider');
 const bcrypt = require ('bcryptjs');
 const generatetoken = require('../config/genratetoken');
+const Booking = require('../Models/booking');
 
 const Signup = async (req,res) =>{
 const {name,email,password,location,city,serviceType} = req.body;
@@ -74,6 +75,22 @@ console.log(error);
 
 };
 
+const booking = async(req,res)=>{
+    const {status }=req.body;
+    try{
+    const booking = await Booking.find({providerId:req.user.id});
+    if(!booking){
+    return res.status(400).json("No booking ");
+    }
+    res.json(booking);
+}
+catch(error){
+    res.json(error);
+}
 
 
-module.exports = {Signup,login}
+
+}
+
+
+module.exports = {Signup,login,booking}

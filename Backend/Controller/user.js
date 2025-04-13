@@ -120,40 +120,38 @@ const providerProfile = async(req,res)=>{
 
 };
 
-const providerAvailability = async(date,time,providerId)=>{
-try{
-    const provider  = await Provider.findById(providerId);
-    if (!provider) {
-        return false;
-        // return res.status(404).json({ message: "Provider not found" });
-      }
 
-    const dayAvailability = provider.availability.find(avail => avail.date === date);
+const providerAvailability = async (date, time, providerId) => {
+  try {
+    const provider = await Provider.findById(providerId);
+    if (!provider) return false;
 
-    if (!dayAvailability) {
-        return false;
-        // return res.status(404).json({ message: "No availability found for the selected date" });
-      }
+    // Normalize input
+    const requestedTime = time.trim();
+    const requestedDate = date.trim();
 
-      const isAvailable = dayAvailability.timeSlots.includes(time);
+    const availabilityForDate = provider.availability.find(slot => {
+      return slot.date === requestedDate;
+    });
 
-      if (isAvailable) {
-        return dayAvailability.timeSlots.includes(time);
-        
-        // return res.status(200).json({ available: true, message: "Time slot is available" });
-      } else {
-        return false ;
-        // return res.status(200).json({ available: false, message: "Time slot is not available" });
-      }
-
-
-    }
-    catch(error){
-        console.error("Error checking availability:", error);
-        res.status(500).json({ message: "Server error" });
+    if (!availabilityForDate) {
+      console.log("No availability for date:", requestedDate);
+      return false;
     }
 
+    const isAvailable = availabilityForDate.timeSlots.includes(requestedTime);
+
+    if (!isAvailable) {
+      console.log("Requested time not found in:", availabilityForDate.timeSlots);
+    }
+
+    return isAvailable;
+  } catch (err) {
+    console.error("Error checking provider availability:", err);
+    return false;
+  }
 };
+
 
 const providerbooking = async(req,res)=>{
     const {date,time}=req.body;
