@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import Signup from './components/Signup';
+import Signup from './Usercomponents/Signup';
 import { BrowserRouter,Router,Routes,Route } from 'react-router-dom';
-import ProviderSignup from './components/ProviderSignup';
+import ProviderSignup from './ProviderComponents/ProviderSignup';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Routes>
       <Route path='/'  element={<Signup/>} ></Route>  
-      <Route path='/provider/signup'  element={<ProviderSignup></ProviderSignup>} ></Route>  
+      <Route path='/provider/signup'  element={<ProviderSignup/>} ></Route>  
 
 
 </Routes>

@@ -77,9 +77,9 @@ console.log(error);
 const getallproviders = async(req,res)=>{
     const {city,serviceType} = req.query;
     
-    // if (!city || !serviceType) {
-    //     return res.status(400).json({ message: "City and Service Type are required" });
-    // }
+    if (!city || !serviceType) {
+        return res.status(400).json({ message: "City and Service Type are required" });
+    }
     try{
         const allproviders = await Provider.find({city,serviceType});
         if (allproviders.length === 0) {
