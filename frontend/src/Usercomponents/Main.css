@@ -21,7 +21,8 @@
 }
 
 .navcomp1 i{
-    font-size: 20px;
+    font-size: 16px;
+    margin-bottom: 6px;
 }
 .user {
     position: absolute;
@@ -38,6 +39,10 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
+}
+.navcomp2 i{
+  font-size: 16px;
+  margin-bottom: 6px;
 }
 
 .maindiv ul {

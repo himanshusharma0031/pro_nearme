@@ -31,14 +31,11 @@ const Login = () => {
   
           if (result.data) {
             console.log(result);
-            navigate('/main');
 
               localStorage.setItem("userToken", result.data.token);
               localStorage.setItem("LoggedInUser", result.data._id);
-
-
-
               console.log("Token Saved:", localStorage.getItem("userToken"));
+              navigate('/main',{ state: { name: result.data.name ,city: result.data.city} });
 
               
             } else {

@@ -65,13 +65,15 @@ res.status(200).json(
         _id:user._id,
             name:user.name,
             email:user.email,
+            city:user.city,
+            
         token:generatetoken(user._id)
     }
 );
 
 }
 else{
-    res.status(200).json("invalid credentials");
+    res.status(404).json("invalid credentials");
 }
 }
 catch(error){
@@ -81,28 +83,32 @@ console.log(error);
 
 };
 
-const getallproviders = async(req,res)=>{
-    const {city,serviceType} = req.query;
-    
+const getallproviders = async (req, res) => {
+    const { city, serviceType } = req.query;
+  
     if (!city || !serviceType) {
-        return res.status(400).json({ message: "City and Service Type are required" });
+      return res.status(400).json({ message: "City and Service Type are required" });
     }
-    try{
-        const allproviders = await Provider.find({city,serviceType});
-        if (allproviders.length === 0) {
-            return res.status(404).json({ message: "No providers found for this city/service" });
+  
+    try {
+      const allproviders = await Provider.find({
+        city,
+        serviceType: { 
+          $regex: `^${serviceType}`, // ^ means starts with
+          $options: 'i' // i means case-insensitive (S == s)
         }
-        if(allproviders){
-            res.status(200).json(allproviders);
-
-        }
-
+      });
+  
+      if (allproviders.length === 0) {
+        return res.status(404).json({ message: "No providers found for this city/service" });
+      }
+  
+      res.status(200).json(allproviders);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-    catch(error){
-res.json(error);
-
-    }
-};
+  };
+  
 const providerProfile = async(req,res)=>{
     try {
         const provider = await Provider.findById(req.params.id);

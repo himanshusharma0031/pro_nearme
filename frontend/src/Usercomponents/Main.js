@@ -1,19 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Main.css';
 import { motion } from "framer-motion";
 import { Typewriter } from 'react-simple-typewriter';
+import { useLocation } from 'react-router-dom';
+import axios from "axios";
 
 
 
-const Main = () => {
+function Main() {
+  const location = useLocation();
+  const { name ,city} = location.state || {}; // safely get name
+  console.log(name);
+  console.log(city);
+  const [serviceType,setserviceType]=useState("");
+  
+
+
+  const handlesearch = async () => {
+    try {
+      const token = localStorage.getItem("userToken"); // get token from localStorage
+  
+      const response = await axios.get("http://localhost:5000/allproviders", {
+        params: { city, serviceType },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      });
+  
+      if (response) {
+        console.log(response.data); 
+      }
+    } catch (error) {
+      console.log(error);
+      console.log(error.response?.data?.message || "Something went wrong");
+    }
+  };
+  
+
+  
+  
   return (
 <div className='maindiv'>
   <div className='navbar'>
     <img src="/logo.png" alt="Logo" />
-    <input placeholder='search professional by their profession or city'></input>
+    <input
+  placeholder="search professional by their profession or city"
+  value={serviceType}
+  onChange={(e) => {
+    setserviceType(e.target.value);
+    handlesearch(e.target.value); 
+  }}
+/>
+
+
     <div className='navcomp1'>
         <i className="fa-solid fa-location-dot"></i>
-        <p>location</p>
+        <p>{city}</p>
     </div>
     <div className='navcomp2'>
         <i className="fa-solid fa-calendar-check"></i>
@@ -34,7 +77,7 @@ const Main = () => {
         transition={{ duration: 1 }}
         className="text-5xl font-extrabold text-blue-700 mt-10 mb-4"
       >
-        Welcome to UtilityConnect
+       HI {name} Welcome to UtilityConnect
       </motion.h1>
 
       <motion.p
@@ -114,4 +157,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default Main;

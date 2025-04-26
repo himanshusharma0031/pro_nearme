@@ -5,7 +5,7 @@ const Router = express.Router();
 
 Router.post('/signup',Signup);
 Router.post('/login',login);
-Router.get('/allproviders',  auth,getallproviders);
+Router.get('/allproviders',getallproviders);
 Router.get('/provider/:id',  auth,providerProfile);
 Router.post('/provider/:id/availability',  auth,providerAvailability);
 Router.post('/provider/:id/booking',  auth,providerbooking);

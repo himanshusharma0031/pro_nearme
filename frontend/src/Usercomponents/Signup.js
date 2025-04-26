@@ -23,6 +23,7 @@ function Signup() {
 
       console.log(res.data);
       alert("Signup successful!");
+      navigate('/login');
     } catch (error) {
       console.error("Signup Error:", error);
       alert(error.response?.data || "Signup failed");
