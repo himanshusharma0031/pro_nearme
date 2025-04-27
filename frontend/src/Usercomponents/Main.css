@@ -136,3 +136,58 @@ h1 {
     height: auto;
     border-radius: 12px;
   }
+  .searchdata {
+    width: 450px;
+    border-radius: 10px; /* Rounded corners for a modern look */
+    border: 1px solid #e1e1e1; /* Lighter border for a subtle effect */
+    background-color: #f9f9f9; /* Soft background for a clean feel */
+    margin-left: auto; /* Centers the element horizontally */
+    margin-right: auto;
+    margin-top: 20px; /* Adjusted margin for better spacing */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow to elevate the element */
+    padding: 20px; /* Added padding for inner spacing */
+    color: #333; /* Darker text for better readability */
+    transition: all 0.3s ease; /* Smooth transition for interactive effects */
+}
+
+.searchdata:hover {
+    transform: translateY(-5px); /* Slight lift on hover for interactive feel */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow on hover */
+}
+
+.searchdata input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+    transition: border 0.3s ease;
+}
+
+.searchdata input:focus {
+    border-color: #007BFF; /* Highlight input border on focus */
+}
+
+.searchdata .search-results {
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.searchdata .search-results li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.searchdata .search-results li:hover {
+    background-color: #f1f1f1; /* Subtle hover effect on list items */
+}
+.hidden{
+  display: none;
+}

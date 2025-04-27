@@ -13,29 +13,46 @@ function Main() {
   console.log(name);
   console.log(city);
   const [serviceType,setserviceType]=useState("");
+  const [searchdata,setsearchdata]=useState([]);
+  console.log(serviceType);
+  
   
 
 
-  const handlesearch = async () => {
-    try {
-      const token = localStorage.getItem("userToken"); // get token from localStorage
-  
-      const response = await axios.get("http://localhost:5000/allproviders", {
-        params: { city, serviceType },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      });
-  
-      if (response) {
-        console.log(response.data); 
-      }
-    } catch (error) {
-      console.log(error);
-      console.log(error.response?.data?.message || "Something went wrong");
+  const handlesearch = async (searchText) => {
+    if (searchText.trim().length > 0) {  // Check if searchText is not just spaces
+        try {
+            const token = localStorage.getItem("userToken");
+
+            if (searchText === "") {
+                setserviceType("");
+            }
+
+            const response = await axios.post(
+                "http://localhost:5000/allproviders", 
+                { city, serviceType: searchText },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    withCredentials: true,
+                }
+            );
+
+            if (response.data && response.data.allproviders) {
+                console.log(response.data.allproviders);
+                setsearchdata(response.data.allproviders);
+            }
+        } catch (error) {
+            console.error("Error during search:", error);
+            console.log(error.response?.data?.message || "Something went wrong");
+        }
+    } else {
+        setsearchdata([]); 
     }
-  };
+};
+
+
   
 
   
@@ -53,7 +70,6 @@ function Main() {
   }}
 />
 
-
     <div className='navcomp1'>
         <i className="fa-solid fa-location-dot"></i>
         <p>{city}</p>
@@ -68,6 +84,15 @@ function Main() {
     <i className="fa-solid fa-user"></i>
   </div>
   <hr />
+  <div className={`searchdata ${searchdata.length === 0 ? 'hidden' : ''}`}>
+  <ul className="search-results">
+    {searchdata.map((provider, index) => (
+      <li key={index}>
+        {provider.serviceType}
+      </li>
+    ))}
+  </ul>
+</div>
 
   <div className="content-container">
     <div className="text-container">
@@ -129,10 +154,10 @@ function Main() {
           '✔ Real-Time Availability',
           '✔ Trusted by Locals'
         ].map((item, i) => (
-          <motion.li
+        <motion.li
             key={i}
             variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}
-            style={{ marginBottom: '10px' }} // add vertical space
+            style={{ marginBottom: '10px' }}
           >
             {item}
           </motion.li>

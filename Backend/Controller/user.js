@@ -82,9 +82,8 @@ console.log(error);
 }
 
 };
-
 const getallproviders = async (req, res) => {
-    const { city, serviceType } = req.query;
+    const { city, serviceType } = req.body;
   
     if (!city || !serviceType) {
       return res.status(400).json({ message: "City and Service Type are required" });
@@ -92,22 +91,21 @@ const getallproviders = async (req, res) => {
   
     try {
       const allproviders = await Provider.find({
-        city,
-        serviceType: { 
-          $regex: `^${serviceType}`, // ^ means starts with
-          $options: 'i' // i means case-insensitive (S == s)
-        }
+        city: city,
+        serviceType: { $regex: serviceType, $options: 'i' }
       });
   
       if (allproviders.length === 0) {
         return res.status(404).json({ message: "No providers found for this city/service" });
       }
   
-      res.status(200).json(allproviders);
+      res.status(200).json({allproviders});
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: "Server error", error });
     }
   };
+  
+  
   
 const providerProfile = async(req,res)=>{
     try {
