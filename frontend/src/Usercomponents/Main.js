@@ -14,10 +14,9 @@ function Main() {
   console.log(city);
   const [serviceType,setserviceType]=useState("");
   const [searchdata,setsearchdata]=useState([]);
-  console.log(serviceType);
-  
-  
 
+  console.log(serviceType);  
+  
 
   const handlesearch = async (searchText) => {
     if (searchText.trim().length > 0) {  // Check if searchText is not just spaces
@@ -84,15 +83,34 @@ function Main() {
     <i className="fa-solid fa-user"></i>
   </div>
   <hr />
-  <div className={`searchdata ${searchdata.length === 0 ? 'hidden' : ''}`}>
-  <ul className="search-results">
-    {searchdata.map((provider, index) => (
-      <li key={index}>
-        {provider.serviceType}
-      </li>
-    ))}
-  </ul>
+
+  <div style={{ position: 'relative' }}>
+
+  <div
+    className={`searchdata ${searchdata.length === 0 ? 'hidden' : ''}`}
+    style={{
+      position: 'absolute',
+      top: '100%',
+      left: 0,
+      width: '100%',
+      backgroundColor: 'white',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+      zIndex: 100,
+      maxHeight: '300px',
+      overflowY: 'auto'
+    }}
+  >
+    <ul className="search-results" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+      {[...new Set(searchdata.map(provider => provider.serviceType))].map((serviceType, index) => (
+        <li key={index} style={{ padding: '10px', borderBottom: '1px solid #eee' }}>
+          {serviceType}
+        </li>
+      ))}
+    </ul>
+  </div>
 </div>
+
+
 
   <div className="content-container">
     <div className="text-container">
