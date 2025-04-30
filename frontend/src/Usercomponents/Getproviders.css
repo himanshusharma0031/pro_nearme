@@ -1,0 +1,50 @@
+.gpmain {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f7fa;
+    min-height: 100vh;
+    cursor: pointer;
+  }
+  
+  .heading {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #2c3e50;
+  }
+  
+  .provider-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .provider-card {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+  }
+  
+  .provider-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .provider-card h3 {
+    margin-bottom: 0.6rem;
+    color: #007bff;
+  }
+  
+  .provider-card p {
+    margin: 0.3rem 0;
+    color: #333;
+  }
+  
+  .no-results {
+    text-align: center;
+    color: #888;
+    font-size: 1.2rem;
+  }
+  

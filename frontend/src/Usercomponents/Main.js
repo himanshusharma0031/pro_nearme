@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import './Main.css';
 import { motion } from "framer-motion";
 import { Typewriter } from 'react-simple-typewriter';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 
 
 function Main() {
   const location = useLocation();
-  const { name ,city} = location.state || {}; // safely get name
+  const { name ,city} = location.state || {}; 
   console.log(name);
   console.log(city);
   const [serviceType,setserviceType]=useState("");
   const [searchdata,setsearchdata]=useState([]);
 
+  const navigate = useNavigate(); 
   console.log(serviceType);  
   
 
@@ -50,6 +51,10 @@ function Main() {
         setsearchdata([]); 
     }
 };
+const handleclick = (serviceType) => {
+  navigate("/providersnearyou",{ state: { city:city  ,serviceType: serviceType} });
+};
+
 
 
   
@@ -102,7 +107,7 @@ function Main() {
   >
     <ul className="search-results" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
       {[...new Set(searchdata.map(provider => provider.serviceType))].map((serviceType, index) => (
-        <li key={index} style={{ padding: '10px', borderBottom: '1px solid #eee' }}>
+        <li key={index} style={{ padding: '10px', borderBottom: '1px solid #eee' }} onClick={()=> handleclick(serviceType)}>
           {serviceType}
         </li>
       ))}
