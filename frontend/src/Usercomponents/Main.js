@@ -71,7 +71,7 @@ function Main() {
 
     <div className='navcomp1'>
         <i className="fa-solid fa-location-dot"></i>
-        <p>{city}</p>
+        <p>{city || "city"}</p>
     </div>
     <div className='navcomp2'>
         <i className="fa-solid fa-calendar-check"></i>

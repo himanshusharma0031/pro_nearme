@@ -104,6 +104,28 @@ const getallproviders = async (req, res) => {
       res.status(500).json({ message: "Server error", error });
     }
   };
+  const getprovider = async (req, res) => {
+    const { city, serviceType } = req.body;
+  
+    if (!city || !serviceType) {
+      return res.status(400).json({ message: "City and Service Type are required" });
+    }
+  
+    try {
+      const allproviders = await Provider.find({
+        city: city,
+        serviceType: serviceType
+      });
+  
+      if (allproviders.length === 0) {
+        return res.status(404).json({ message: "No providers found for this city/service" });
+      }
+  
+      res.status(200).json({allproviders});
+    } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+    }
+  };
   
   
   
@@ -198,4 +220,4 @@ const providerbooking = async(req,res)=>{
 
 
 
-module.exports = {Signup,login,getallproviders,providerProfile,providerAvailability,providerbooking}
+module.exports = {Signup,login,getallproviders,providerProfile,providerAvailability,providerbooking,getprovider}
