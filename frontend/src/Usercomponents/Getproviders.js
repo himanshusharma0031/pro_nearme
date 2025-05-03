@@ -22,7 +22,7 @@ const Getproviders = () => {
             withCredentials: true,
           }
         );
-        setProviders(response.data.allproviders); // assuming backend sends { providers: [...] }
+        setProviders(response.data.allproviders); 
         console.log(response.data.allproviders);
       } catch (error) {
         console.error("Error fetching providers:", error);
@@ -34,6 +34,7 @@ const Getproviders = () => {
 
   return (
     <div className="gpmain">
+      
       <h2 className="heading">Service Providers in {city} for {serviceType}</h2>
       <div className="provider-list">
         {providers.length > 0 ? (
