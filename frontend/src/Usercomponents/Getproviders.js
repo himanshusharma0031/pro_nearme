@@ -7,6 +7,19 @@ const Getproviders = () => {
   const location = useLocation();
   const { city, serviceType } = location.state || {};
   const [providers, setProviders] = useState([]);
+  const [show,setshow] = useState(false);
+  const [selectedProvider, setSelectedProvider] = useState(null);
+
+
+
+
+  const booking = (provider)=>{
+    setshow(!show);
+    setSelectedProvider(provider);
+
+  }
+
+
 
   useEffect(() => {
     const handlefunction = async () => {
@@ -39,7 +52,7 @@ const Getproviders = () => {
       <div className="provider-list">
         {providers.length > 0 ? (
           providers.map((provider, index) => (
-            <div className="provider-card" key={index}>
+            <div className="provider-card" key={index} onClick={()=> booking(provider)}>
               <h3>{provider.name}</h3>
               <p><strong>Profession:</strong> {provider.serviceType}</p>
               <p><strong>Email:</strong> {provider.email}</p>
@@ -50,6 +63,26 @@ const Getproviders = () => {
           <p className="no-results">No providers found.</p>
         )}
       </div>
+
+      {show && selectedProvider && (
+  <div className="modal-overlay" onClick={()=> setshow(false)}>
+    <div className="modal"  onClick={(e) => e.stopPropagation()}>
+      <h2>{selectedProvider.name}</h2>
+      <p><strong>Email:</strong> {selectedProvider.email}</p>
+      <p><strong>Profession:</strong> {selectedProvider.serviceType}</p>
+      <p><strong>City:</strong> {selectedProvider.city}</p>
+
+      <div className="modal-buttons">
+        <button className="check-btn">Check Availability</button>
+        <button className="book-btn">Add Booking</button>
+        <button className="close-btn" onClick={() => setshow(false)}>Close</button>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
     </div>
   );
 };

@@ -152,71 +152,86 @@ const providerProfile = async(req,res)=>{
     }
 
 };
+// helper.js
+const checkAvailability = (provider, date, time) => {
+  const requestedTime = time.trim();
+  const requestedDate = date.trim();
+  
+
+  const availabilityForDate = provider.availability.find(
+    slot => slot.date === requestedDate
+  );
+
+  if (!availabilityForDate) return false;
+
+  return availabilityForDate.timeSlots.includes(requestedTime);
+};
 
 
-const providerAvailability = async (date, time, providerId) => {
+const providerAvailability = async (req, res) => {
   try {
-    const provider = await Provider.findById(providerId);
-    if (!provider) return false;
+    const { date, time } = req.body;
+    const { id: providerId } = req.params;
 
-    // Normalize input
+    if (!date || !time) {
+      return res.status(400).json({ message: "Date and time are required" });
+    }
+
+    const provider = await Provider.findById(providerId);
+
+    if (!provider) {
+      return res.status(404).json({ message: "Provider not found" });
+    }
+
     const requestedTime = time.trim();
     const requestedDate = date.trim();
 
-    const availabilityForDate = provider.availability.find(slot => {
-      return slot.date === requestedDate;
-    });
+    const isAvailable = checkAvailability(provider, requestedDate, requestedTime);
+    res.status(200).json({ available: isAvailable });
 
-    if (!availabilityForDate) {
-      console.log("No availability for date:", requestedDate);
-      return false;
-    }
-
-    const isAvailable = availabilityForDate.timeSlots.includes(requestedTime);
-
-    if (!isAvailable) {
-      console.log("Requested time not found in:", availabilityForDate.timeSlots);
-    }
-
-    return isAvailable;
   } catch (err) {
     console.error("Error checking provider availability:", err);
-    return false;
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
 
-const providerbooking = async(req,res)=>{
-    const {date,time}=req.body;
 
-    try{
-      const   isAvailable = await providerAvailability(date,time,req.params.id);
-        if(!isAvailable){
-            return res.status(400).json({ message: "Time slot is not available" });
-        }
+const providerbooking = async (req, res) => {
+  const { date, time } = req.body;
+  const { id: providerId } = req.params;
 
-        const booking  =await  Booking.create({
-            userId:req.user.id,
-            providerId:req.params.id,
-            date:date,
-            time:time
-        });
+  try {
+      // Find provider by ID
+      const provider = await Provider.findById(providerId);
+      if (!provider) return res.status(404).json({ message: "Provider not found" });
 
-        if(!booking){
-           return  res.status(400).json({message:"booking failed"});
-        }
-        res.status(200).json(booking);
+      // Check availability
+      const isAvailable = await checkAvailability(provider,date, time);
+      if (!isAvailable) {
+          return res.status(400).json({ message: "Time slot is not available" });
+      }
 
-        
+      // Create booking
+      const booking = await Booking.create({
+          userId: req.user.id,
+          providerId: providerId,
+          date: date,
+          time: time
+      });
 
+      if (!booking) {
+          return res.status(400).json({ message: "Booking failed" });
+      }
 
-    }
-    catch(error){
-        res.json(error);
-    }
-
-
+      // Return success response
+      res.status(200).json({ message: "Booking successful", booking });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error", error: error.message });
+  }
 };
+
 
 
 
