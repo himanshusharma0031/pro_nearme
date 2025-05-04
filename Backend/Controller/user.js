@@ -213,6 +213,19 @@ const providerbooking = async (req, res) => {
       }
 
       // Create booking
+
+      const alreadyAccepted = await Booking.findOne({
+        providerId,
+        date,
+        time,
+        status: "Accepted"
+      });
+      
+      if (alreadyAccepted) {
+        return res.status(400).json({ message: "Another booking has already been accepted for this time." });
+      }
+
+      
       const booking = await Booking.create({
           userId: req.user.id,
           providerId: providerId,
