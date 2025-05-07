@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import './Getproviders.css'; // create and link this CSS file
+import './Getproviders.css';  
 
 const Getproviders = () => {
   const location = useLocation();
@@ -9,6 +9,10 @@ const Getproviders = () => {
   const [providers, setProviders] = useState([]);
   const [show,setshow] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState(null);
+  const [date,setdate] = useState("");
+  const [time,settime] = useState("");
+  console.log(date,time);
+  
 
 
 
@@ -17,6 +21,29 @@ const Getproviders = () => {
     setshow(!show);
     setSelectedProvider(provider);
 
+  }
+  const checkavail = async()=>{
+
+    try{
+      const token = localStorage.getItem("userToken");
+      const response = await axios.post(
+    `http://localhost:5000/provider/${selectedProvider._id}/availability`,
+        { date,time },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+            withCredentials: true,
+        }
+    );
+    console.log(response);
+    
+
+
+    }
+    catch(error){
+
+    }
   }
 
 
@@ -73,7 +100,10 @@ const Getproviders = () => {
       <p><strong>City:</strong> {selectedProvider.city}</p>
 
       <div className="modal-buttons">
-        <button className="check-btn">Check Availability</button>
+        <button className="check-btn" onClick={checkavail}>Check Availability</button>
+        <input type='date' onChange={(e) => setdate(e.target.value)} />
+<input type='time' onChange={(e) => settime(e.target.value)} />
+
         <button className="book-btn">Add Booking</button>
         <button className="close-btn" onClick={() => setshow(false)}>Close</button>
       </div>
