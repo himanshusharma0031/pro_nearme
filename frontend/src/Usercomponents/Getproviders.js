@@ -11,7 +11,10 @@ const Getproviders = () => {
   const [selectedProvider, setSelectedProvider] = useState(null);
   const [date,setdate] = useState("");
   const [time,settime] = useState("");
+  const [avail,setavail] = useState(false);
   console.log(date,time);
+  console.log(avail);
+  
   
 
 
@@ -37,6 +40,7 @@ const Getproviders = () => {
         }
     );
     console.log(response);
+    setavail(response.data.available);
     
 
 
@@ -45,8 +49,28 @@ const Getproviders = () => {
 
     }
   }
+useEffect(()=>{
+checkavail();
+},[date, time,selectedProvider]);
 
-
+const addbooking = async()=>{
+  try {
+    const token = localStorage.getItem("userToken");
+    const response = await axios.post(
+        `http://localhost:5000/provider/${selectedProvider._id}/booking`,
+      { date, time },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    );
+    console.log(response.data);
+  } catch (error) {
+    console.error("Error fetching providers:", error);
+  }
+}
 
   useEffect(() => {
     const handlefunction = async () => {
@@ -103,8 +127,15 @@ const Getproviders = () => {
         <button className="check-btn" onClick={checkavail}>Check Availability</button>
         <input type='date' onChange={(e) => setdate(e.target.value)} />
 <input type='time' onChange={(e) => settime(e.target.value)} />
+{
+  avail ? (
+    <h3>Provider is available at this date and time</h3>
+  ):(
+    <h3>Provider is not available at this date and time</h3>
+  )
+}
 
-        <button className="book-btn">Add Booking</button>
+        <button className="book-btn" onClick={addbooking}>Add Booking</button>
         <button className="close-btn" onClick={() => setshow(false)}>Close</button>
       </div>
     </div>
