@@ -222,14 +222,15 @@ const providerbooking = async (req, res) => {
         status: "Accepted"
       });
 
-      const uniquebook = await Booking.find({
+      const uniquebook = await Booking.findOne({
         providerId,
         userId,
         date,
-        time
+        time,
+        status:"pending"
       });
       
-      if (uniquebook.length > 0) {
+      if (uniquebook) {
         return res.status(400).json({ message: "You have already booked this slot." });
       }
       
@@ -254,6 +255,9 @@ const providerbooking = async (req, res) => {
       res.status(200).json({ message: "Booking successful", booking });
   } catch (error) {
       console.error(error);
+      if(error.code===11000){
+        res.json("Booking already done");
+      }
       res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };

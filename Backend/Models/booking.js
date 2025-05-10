@@ -10,5 +10,11 @@ const BookingSchema = new mongoose.Schema({
     
   });
   
+  BookingSchema.index(
+    { userId: 1, providerId: 1, date: 1, time: 1, status: 1 },
+    { unique: true }
+  );
+  
+  
   module.exports  = mongoose.model("Booking", BookingSchema);
   
