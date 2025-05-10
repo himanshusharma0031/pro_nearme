@@ -200,6 +200,7 @@ const providerAvailability = async (req, res) => {
 const providerbooking = async (req, res) => {
   const { date, time } = req.body;
   const { id: providerId } = req.params;
+  const userId = req._id;
 
   try {
       // Find provider by ID
@@ -220,8 +221,20 @@ const providerbooking = async (req, res) => {
         time,
         status: "Accepted"
       });
+
+      const uniquebook = await Booking.find({
+        providerId,
+        userId,
+        date,
+        time
+      });
       
-      if (alreadyAccepted) {
+      if (uniquebook.length > 0) {
+        return res.status(400).json({ message: "You have already booked this slot." });
+      }
+      
+      
+      if (alreadyAccepted ) {
         return res.status(400).json({ message: "Another booking has already been accepted for this time." });
       }
 
