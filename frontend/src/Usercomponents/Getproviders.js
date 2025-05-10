@@ -12,6 +12,7 @@ const Getproviders = () => {
   const [date,setdate] = useState("");
   const [time,settime] = useState("");
   const [avail,setavail] = useState(false);
+  const[bookingstatus,setbookingstatus]= useState("");
   console.log(date,time);
   console.log(avail);
   
@@ -66,10 +67,17 @@ const addbooking = async()=>{
         withCredentials: true,
       }
     );
-    console.log(response.data);
+    console.log(response.data.message);
+    
+    if(response.data.message=="Booking successful"){
+setbookingstatus(response.data.message);
+    }
   } catch (error) {
     console.error("Error fetching providers:", error);
   }
+  setshow(false);
+  alert(bookingstatus);
+
 }
 
   useEffect(() => {
@@ -134,7 +142,7 @@ const addbooking = async()=>{
     <h3>Provider is not available at this date and time</h3>
   )
 }
-
+      
         <button className="book-btn" onClick={addbooking}>Add Booking</button>
         <button className="close-btn" onClick={() => setshow(false)}>Close</button>
       </div>
