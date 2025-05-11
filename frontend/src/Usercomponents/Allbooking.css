@@ -1,0 +1,57 @@
+.allbookings {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.allbookings:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.booking-header p {
+  font-size: 14px;
+  color: #666;
+}
+
+.booking-header span {
+  font-weight: 500;
+  color: #333;
+}
+
+.booking-status {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.booking-status span {
+  font-weight: 600;
+}
+
+.booking-status.pending {
+  color: #b7791f; /* amber */
+}
+
+.booking-status.accepted {
+  color: #2f855a; /* green */
+}
+
+.booking-status.rejected {
+  color: #c53030; /* red */
+}
+
+.provider-details {
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+  font-size: 14px;
+  color: #444;
+}

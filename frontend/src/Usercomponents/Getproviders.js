@@ -12,7 +12,6 @@ const Getproviders = () => {
   const [date,setdate] = useState("");
   const [time,settime] = useState("");
   const [avail,setavail] = useState(false);
-  const[bookingstatus,setbookingstatus]= useState("");
   console.log(date,time);
   console.log(avail);
   

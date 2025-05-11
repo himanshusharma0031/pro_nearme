@@ -269,25 +269,25 @@ const providerbooking = async (req, res) => {
   }
 };
 
-const fetchbooking = async(req,res)=>{
+const fetchbooking = async (req, res) => {
   const userId = req.user.id;
-  try {
-    const response  = await Booking.findById(userId);
+  console.log(userId);
 
-    if(!response){
-    return   res.json("No Bookings");
+  try {
+    const response = await Booking.find({ userId })
+      .populate("providerId", "name serviceType"); // ✅ Pulls full provider info
+
+    if (!response || response.length === 0) {
+      return res.json({ message: "No bookings found" });
     }
 
     res.json(response);
-
-    
   } catch (error) {
-    
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong" });
   }
+};
 
-
-
-}
 
 
 

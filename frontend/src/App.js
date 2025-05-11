@@ -6,6 +6,7 @@ import Login from './Usercomponents/Login';
 import {Navigate } from 'react-router-dom';
 import Main from './Usercomponents/Main';
 import Getproviders from './Usercomponents/Getproviders';
+import Allbookings from './Usercomponents/Allbookings';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
       <Route path='/provider/signup'  element={<ProviderSignup/>} ></Route>  
       
       <Route path='/providersnearyou'  element={<Getproviders/>} ></Route>  
+            <Route path='/YourBookings'  element={<Allbookings/>} ></Route>  
+
 
 
 
