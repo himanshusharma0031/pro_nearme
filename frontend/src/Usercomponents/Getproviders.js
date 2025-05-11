@@ -69,14 +69,14 @@ const addbooking = async()=>{
     );
     console.log(response.data.message);
     
-    if(response.data.message=="Booking successful"){
-setbookingstatus(response.data.message);
-    }
+      alert(response.data.message);
+
+    
   } catch (error) {
     console.error("Error fetching providers:", error);
   }
   setshow(false);
-  alert(bookingstatus);
+  
 
 }
 

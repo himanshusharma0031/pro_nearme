@@ -200,7 +200,12 @@ const providerAvailability = async (req, res) => {
 const providerbooking = async (req, res) => {
   const { date, time } = req.body;
   const { id: providerId } = req.params;
-  const userId = req._id;
+  const userId = req.user.id;
+  console.log(userId);
+  if (!userId) {
+    return res.status(401).json({ error: 'Unauthorized: No user ID' });
+  }
+  
 
   try {
       // Find provider by ID
@@ -241,7 +246,7 @@ const providerbooking = async (req, res) => {
 
       
       const booking = await Booking.create({
-          userId: req.user.id,
+          userId: userId,
           providerId: providerId,
           date: date,
           time: time
@@ -254,15 +259,36 @@ const providerbooking = async (req, res) => {
       // Return success response
       res.status(200).json({ message: "Booking successful", booking });
   } catch (error) {
-      console.error(error);
-      if(error.code===11000){
-        res.json("Booking already done");
-      }
-      res.status(500).json({ message: "Internal server error", error: error.message });
+    if (error.code === 11000) {
+      // Duplicate key error
+      res.status(200).json({ message: 'Duplicate booking ' });
+    } else {
+      // Other errors
+      res.status(500).json({ error: 'Something went wrong' });
+    }
   }
 };
 
+const fetchbooking = async(req,res)=>{
+  const userId = req.user.id;
+  try {
+    const response  = await Booking.findById(userId);
+
+    if(!response){
+    return   res.json("No Bookings");
+    }
+
+    res.json(response);
+
+    
+  } catch (error) {
+    
+  }
 
 
 
-module.exports = {Signup,login,getallproviders,providerProfile,providerAvailability,providerbooking,getprovider}
+}
+
+
+
+module.exports = {Signup,login,getallproviders,providerProfile,providerAvailability,providerbooking,getprovider,fetchbooking}
