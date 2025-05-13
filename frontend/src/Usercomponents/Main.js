@@ -80,7 +80,7 @@ const handleclick = (serviceType) => {
     </div>
     <div className='navcomp2'>
         <i className="fa-solid fa-calendar-check"></i>
-        <p>My Bookings</p>
+        <p onClick={()=> navigate('/YourBookings')} className='mybook'>My Bookings</p>
     </div>
   </div>
 

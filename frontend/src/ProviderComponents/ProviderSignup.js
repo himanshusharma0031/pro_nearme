@@ -13,6 +13,7 @@ function ProviderSignup() {
   const [serviceType,setservicetype]=useState("");
 
     const [userLocation, setUserLocation] = useState({ lat: 37.7749, lng: -122.4194 }); // Default location
+    const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault(); 
 
@@ -148,6 +149,7 @@ function ProviderSignup() {
         </LoadScript>
 
 <button>submit</button>
+<button onClick={()=> navigate("/provider/login")}>Login</button>
 
 
       </form>

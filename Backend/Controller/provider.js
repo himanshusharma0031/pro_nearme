@@ -59,9 +59,17 @@ if(!email || !password){
 }
 
 try{
-const user = await Provider.findOne({email});
-if(user && (await bcrypt.compare(password,user.password))){
-res.status(200).json(user);
+const provider = await Provider.findOne({email});
+if(provider && (await bcrypt.compare(password,provider.password))){
+res.status(200).json(
+      {
+        _id:provider._id,
+            name:provider.name,
+            email:provider.email,
+            city:provider.city,
+        token:generatetoken(provider._id)
+    }
+)
 
 }
 else{
@@ -78,7 +86,7 @@ console.log(error);
 const booking = async(req,res)=>{
     const {status }=req.body;
     try{
-    const booking = await Booking.find({providerId:req.user.id});
+    const booking = await Booking.find({providerId:req.Provider.id});
     if(!booking){
     return res.status(400).json("No booking ");
     }
