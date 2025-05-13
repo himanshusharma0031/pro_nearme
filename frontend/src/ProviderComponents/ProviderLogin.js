@@ -23,7 +23,7 @@ function ProviderLogin() {
               console.log("Token Saved:", localStorage.getItem("ProviderToken"));
       alert("Login successful!");
       console.log(result.data);
-      navigate("/main"); // adjust route as needed
+      navigate("/provider/main",{ state: { name: result.data.name ,city: result.data.city} }); // adjust route as needed
     } catch (error) {
       console.error("Login error:", error);
       alert(error.response?.data?.message || "Login failed");

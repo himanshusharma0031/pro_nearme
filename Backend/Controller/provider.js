@@ -61,6 +61,8 @@ if(!email || !password){
 try{
 const provider = await Provider.findOne({email});
 if(provider && (await bcrypt.compare(password,provider.password))){
+    console.log(provider);
+    
 res.status(200).json(
       {
         _id:provider._id,
@@ -84,9 +86,9 @@ console.log(error);
 };
 
 const booking = async(req,res)=>{
-    const {status }=req.body;
+    const {status}=req.body;
     try{
-    const booking = await Booking.find({providerId:req.Provider.id});
+    const booking = await Booking.find({providerId:req.user.id}).populate("userId", "name email").populate ("providerId","name email");
     if(!booking){
     return res.status(400).json("No booking ");
     }

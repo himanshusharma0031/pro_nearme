@@ -8,6 +8,8 @@ import Main from './Usercomponents/Main';
 import Getproviders from './Usercomponents/Getproviders';
 import Allbookings from './Usercomponents/Allbookings';
 import ProviderLogin from './ProviderComponents/ProviderLogin';
+import Pmain from './ProviderComponents/Pmain';
+import ProviderBookings from './ProviderComponents/ProviderBookings';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
 
       <Route path='/providersnearyou'  element={<Getproviders/>} ></Route>  
             <Route path='/YourBookings'  element={<Allbookings/>} ></Route>  
+                  <Route path='/provider/main'  element={<Pmain/>} ></Route>  
+                  <Route path='/provider/yourBookings'  element={<ProviderBookings/>} ></Route>  
 
 
 
