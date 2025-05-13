@@ -90,7 +90,7 @@ const booking = async(req,res)=>{
     try{
     const booking = await Booking.find({providerId:req.user.id}).populate("userId", "name email").populate ("providerId","name email");
     if(!booking){
-    return res.status(400).json("No booking ");
+    return res.status(400).json("No booking");
     }
     res.json(booking);
   
