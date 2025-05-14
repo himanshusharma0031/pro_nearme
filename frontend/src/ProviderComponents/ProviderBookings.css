@@ -1,0 +1,38 @@
+.accrej {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.accrej div {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 18px;
+  color: white;
+}
+
+/* Approve Button */
+.approve {
+  background-color: #4CAF50; /* green */
+}
+
+.approve:hover {
+  background-color: #45a049;
+}
+
+/* Reject Button */
+.reject {
+  background-color: #f44336; /* red */
+}
+
+.reject:hover {
+  background-color: #d32f2f;
+}

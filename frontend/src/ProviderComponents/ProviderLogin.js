@@ -19,9 +19,8 @@ function ProviderLogin() {
       );
       
               localStorage.setItem("ProviderToken", result.data.token);
-              localStorage.setItem("LoggedInProvider", result.data._id);
+              localStorage.setItem("LoggedInProvider", result.data._id); //it is provider id
               console.log("Token Saved:", localStorage.getItem("ProviderToken"));
-      alert("Login successful!");
       console.log(result.data);
       navigate("/provider/main",{ state: { name: result.data.name ,city: result.data.city} }); // adjust route as needed
     } catch (error) {

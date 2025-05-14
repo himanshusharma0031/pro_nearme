@@ -9,6 +9,7 @@ function Pmain() {
   const { name, city, serviceType } = location.state || {};
 console.log(name,city);
 
+
   const handleLogout = () => {
     localStorage.removeItem("providerToken");
     navigate('/provider/login');
