@@ -156,15 +156,25 @@ const providerProfile = async(req,res)=>{
 const checkAvailability = (provider, date, time) => {
   const requestedTime = time.trim();
   const requestedDate = date.trim();
-  
 
+  // 1. Check availability data (date + timeslot)
   const availabilityForDate = provider.availability.find(
     slot => slot.date === requestedDate
   );
 
   if (!availabilityForDate) return false;
+  const isTimeAvailable = availabilityForDate.timeSlots.includes(requestedTime);
+  if (!isTimeAvailable) return false;
 
-  return availabilityForDate.timeSlots.includes(requestedTime);
+  // 2. Check if there's a confirmed booking for this date + time
+  const isSlotTaken = provider.bookings?.some(booking =>
+    booking.date === requestedDate &&
+    booking.time === requestedTime &&
+    booking.status === "confirmed"
+  );
+
+  // 3. Allow booking if no confirmed booking exists
+  return !isSlotTaken;
 };
 
 

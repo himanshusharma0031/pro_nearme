@@ -42,8 +42,6 @@ const Getproviders = () => {
     console.log(response);
     setavail(response.data.available);
     
-
-
     }
     catch(error){
 
@@ -95,6 +93,7 @@ const addbooking = async()=>{
         );
         setProviders(response.data.allproviders); 
         console.log(response.data.allproviders);
+        
       } catch (error) {
         console.error("Error fetching providers:", error);
       }

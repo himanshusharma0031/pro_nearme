@@ -32,7 +32,7 @@ const Allbookings = () => {
 
   return (
     <div>
-   {data.map((booking, indx) => (
+   { data.length>0 ? (data.map((booking, indx) => (
   <div className="allbookings" key={indx}>
     <div className="booking-header">
       <p>Date: <span>{booking.date}</span></p>
@@ -50,7 +50,7 @@ const Allbookings = () => {
       </div>
     )}
   </div>
-))}
+))):(<h2>No booking found</h2>)}
 
     </div>
   )

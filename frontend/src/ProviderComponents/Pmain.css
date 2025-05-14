@@ -1,83 +1,198 @@
-.provider-main {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f6fc;
-  min-height: 100vh;
+.maindiv{
+    margin: 10px;
 }
 
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 30px;
-  background-color: #1e3a8a;
-  color: white;
+.navbar1{
+    height: 60px;
+    width: 100%;
+    display: flex;
+    margin-left: 5px;
+    color: black;
+}
+.navbar1 input{
+    width: 30%;
+    margin-left: 25px;
+}
+.navcomp1{
+    display: flex;
+    margin-left: 60px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
-.logo {
-  height: 45px;
+.navcomp1 i{
+    font-size: 16px;
+    margin-bottom: 6px;
+}
+.user {
+    position: absolute;
+    margin-left: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 90rem;
+    margin-top: -39px;
+
+}
+.navcomp2{
+    display: flex;
+    margin-left: 80px;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.navcomp2 i{
+  font-size: 16px;
+  margin-bottom: 6px;
 }
 
-.nav-items {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-comp {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: default;
-}
-
-.clickable {
-  cursor: pointer;
-}
-
-.provider-content {
-  display: flex;
-  justify-content: space-between;
-  padding: 60px 80px;
-}
-
-.text-content {
-  max-width: 55%;
-}
-
-.heading {
-  font-size: 2.8rem;
-  color: #1e3a8a;
-  margin-bottom: 20px;
-}
-
-.subheading {
-  font-size: 1.2rem;
-  color: #444;
-  margin-bottom: 30px;
-}
-
-.features {
+.maindiv ul {
   list-style: none;
   padding: 0;
-  margin-bottom: 30px;
-  color: #333;
 }
 
-.features li {
-  margin-bottom: 12px;
-  font-size: 1.1rem;
+.maindiv ul li {
+  margin-bottom: 10px;
+}
+/* Styling the header */
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #1e40af;
+    margin-top: 40px;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    color: #4b5563;
+    margin-top: 20px;
+    margin-bottom: 30px;
+  }
+  
+  /* Typewriter effect styling */
+  .text-blue-500 {
+    font-weight: 600;
+  }
+  
+  /* List styling */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 40px;
+  }
+  
+  li {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #4b5563;
+  }
+  
+  /* Button styling */
+  button {
+    padding: 15px 30px;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 1.2rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #2563eb;
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  /* Flex container for content and image */
+  .content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+  }
+  
+  /* Left text container */
+  .text-container {
+    flex: 1;
+    margin-left: 24px;
+    padding-right: 20px;
+    text-align: left;
+  }
+  
+  /* Right image container */
+  .image-container {
+    flex: 1;
+    padding-left: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .image-container img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 12px;
+  }
+  .searchdata {
+    width: 450px;
+    border-radius: 10px; /* Rounded corners for a modern look */
+    border: 1px solid #e1e1e1; /* Lighter border for a subtle effect */
+    background-color: #f9f9f9; /* Soft background for a clean feel */
+    margin-left: auto; /* Centers the element horizontally */
+    margin-right: auto;
+    margin-top: 20px; /* Adjusted margin for better spacing */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow to elevate the element */
+    padding: 20px; /* Added padding for inner spacing */
+    color: #333; /* Darker text for better readability */
+    transition: all 0.3s ease; /* Smooth transition for interactive effects */
 }
 
-.cta-button {
-  padding: 12px 24px;
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
+.searchdata:hover {
+    transform: translateY(-5px); /* Slight lift on hover for interactive feel */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow on hover */
+}
+
+.searchdata input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+    transition: border 0.3s ease;
+}
+
+.searchdata input:focus {
+    border-color: #007BFF; /* Highlight input border on focus */
+}
+
+.searchdata .search-results {
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.searchdata .search-results li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.searchdata .search-results li:hover {
+    background-color: #f1f1f1; /* Subtle hover effect on list items */
+}
+.hidden{
+  display: none;
+}
+
+.mybook{
   cursor: pointer;
-}
-
-.image-section img {
-  max-width: 400px;
-  border-radius: 10px;
 }

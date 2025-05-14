@@ -17,7 +17,7 @@ console.log(name,city);
 
   return (
     <div className="provider-main">
-      <div className="navbar">
+      <div className="navbar1">
         <img src="/logo.png" alt="Logo" className="logo" />
         <div className="nav-items">
           <div className="nav-comp">

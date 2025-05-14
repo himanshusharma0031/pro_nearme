@@ -52,7 +52,7 @@ console.log(res);
           toast.error(`Booking ${newStatus}`)
         }
         
-        await fetchProviderBookings(); // Refresh only after toast
+        await fetchProviderBookings(); 
       } else {
         toast.error("Failed to update booking");
       }
