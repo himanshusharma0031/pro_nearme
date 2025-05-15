@@ -113,7 +113,9 @@ const addbooking = async()=>{
               <h3>{provider.name}</h3>
               <p><strong>Profession:</strong> {provider.serviceType}</p>
               <p><strong>Email:</strong> {provider.email}</p>
-              <p><strong>Location:</strong> {provider.city}</p>
+              <p><strong>city:</strong> {provider.city}</p>
+                            <p><strong>Full adress:</strong> {provider.location}</p>
+
             </div>
           ))
         ) : (

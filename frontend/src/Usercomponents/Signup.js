@@ -1,23 +1,23 @@
 import './Signup.css';
 import React, { useState } from "react";
 import axios from "axios";
-import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import { useNavigate } from 'react-router-dom';
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState(""); // Now for full address
   const [password, setPassword] = useState("");
-  const [city, setcity] = useState("");
+  const [city, setCity] = useState("");
   const navigate = useNavigate();
-    const [userLocation, setUserLocation] = useState({ lat: 37.7749, lng: -122.4194 }); // Default location
+
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/signup",
-        { name, email, password, location,city },
+      const res = await axios.post(
+        "http://localhost:5000/signup",
+        { name, email, password, location, city },
         { withCredentials: true }
       );
 
@@ -28,33 +28,11 @@ function Signup() {
       console.error("Signup Error:", error);
       alert(error.response?.data || "Signup failed");
     }
-  }
-  const GOOGLE_MAPS_API_KEY = "AIzaSyC0xHQ3SSduD4EE2uGkZ4awZzzRzcMwodE";  // Replace with your Google Maps API Key
-
-  
-
-  // Get user's current location
-  const handleLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          setUserLocation({ lat: latitude, lng: longitude });
-          setLocation(`${latitude},${longitude}`); // Set city name in location field
-        },
-        (error) => {
-          console.log("Error fetching location:", error);
-          alert("Unable to fetch location");
-        }
-      );
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
   };
-const navigation= ()=>{
-  navigate('/provider/signup');
-}
-  
+
+  const navigation = () => {
+    navigate('/provider/signup');
+  };
 
   return (
     <div className="signup-container">
@@ -82,20 +60,21 @@ const navigation= ()=>{
             required
           />
         </div>
+
         <div className="form-group">
-          <label htmlFor="city">city</label>
+          <label htmlFor="city">City</label>
           <input
-            type="city"
-            id="ciity"
+            type="text"
+            id="city"
             value={city}
-            onChange={(e) => setcity(e.target.value)}
+            onChange={(e) => setCity(e.target.value)}
             placeholder="Enter your city"
             required
           />
         </div>
-        
+
         <div className="form-group">
-          <label htmlFor="email">password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
@@ -106,43 +85,20 @@ const navigation= ()=>{
           />
         </div>
 
-        {/* Location Button */}
         <div className="form-group">
-          <label>Location</label>
-          <button type="button" onClick={handleLocation}>Get My Location</button>
+          <label htmlFor="location">Full Address</label>
           <input
             type="text"
+            id="location"
             value={location}
-            placeholder="Your city will appear here"
-            readOnly
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Enter your full address"
+            required
           />
         </div>
 
-        {/* Google Map with Draggable Marker */}
-        <LoadScript googleMapsApiKey={"AIzaSyC0xHQ3SSduD4EE2uGkZ4awZzzRzcMwodE"}>
-          <GoogleMap
-            mapContainerStyle={{ width: "100%", height: "400px" }}
-            center={userLocation}
-            zoom={12}
-          >
-            <Marker
-  position={userLocation}
-  draggable={true}
-  onDragEnd={(event) => {
-    const newLat = event.latLng.lat();
-    const newLng = event.latLng.lng();
-    setUserLocation({ lat: newLat, lng: newLng });
-    setLocation(`${newLat},${newLng}`);
-  }}
-/>
-
-          </GoogleMap>
-        </LoadScript>
-
-<button>submit</button>
-
-<button type="button" onClick={navigation}>Signup as a Service Provider</button>
-
+        <button type="submit">Submit</button>
+        <button type="button" onClick={navigation}>Signup as a Service Provider</button>
       </form>
     </div>
   );

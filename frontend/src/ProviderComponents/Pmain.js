@@ -42,6 +42,7 @@ console.log(name,city);
           </div>
         </div>
       </div>
+      <hr/>
 
       <div className="provider-content">
         <div className="text-content">

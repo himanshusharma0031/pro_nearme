@@ -9,6 +9,9 @@
     margin-left: 5px;
     color: black;
 }
+.navbar1 img{
+  margin: 8px;
+}
 .navbar1 input{
     width: 30%;
     margin-left: 25px;
