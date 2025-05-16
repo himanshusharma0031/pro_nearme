@@ -90,7 +90,7 @@ console.log(res);
             <div className='approve' onClick={() => handlebook(booking._id, "Confirmed")}>
               <i className="fa-solid fa-check"></i>
             </div>
-            <div className='reject' onClick={() => handlebook(booking._id, "Canceled")}>
+            <div className='reject' onClick={() => handlebook(booking._id, "Rejected")}>
               <i className="fa-solid fa-xmark"></i>
             </div>
           </div>
