@@ -2,7 +2,9 @@ const express = require('express');
 const {Signup,login, getallproviders, providerProfile, providerAvailability, providerbooking, getprovider, fetchbooking} = require('../Controller/user');
 const auth = require('../middleware/auth');
 const Router = express.Router();
-
+Router.get('/',(req,res)=>{
+    res.send("Backend Running");
+});
 Router.post('/signup',Signup);
 Router.post('/login',login);
 Router.post('/allproviders',getallproviders);
