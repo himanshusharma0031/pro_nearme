@@ -15,12 +15,7 @@ const Getproviders = () => {
   console.log(date,time);
   console.log(avail);
   
-  
-
-
-
-
-  const booking = (provider)=>{
+    const booking = (provider)=>{
     setshow(!show);
     setSelectedProvider(provider);
 

@@ -285,8 +285,8 @@ const fetchbooking = async (req, res) => {
 
   try {
     const response = await Booking.find({ userId })
-      .populate("providerId", "name serviceType"); // ✅ Pulls full provider info
-
+      .populate("providerId", "name serviceType"); 
+      
     if (!response || response.length === 0) {
       return res.json({ message: "No bookings found" });
     }
