@@ -55,6 +55,7 @@ mongoose.connect("mongodb://localhost:27017/Utility-Management-System", {
   useUnifiedTopology: true,
 }).then(() => {
   console.log("✅ Connected to MongoDB");
+  
   app.listen(port, () => {
     console.log("✅ Server running on port", port);
   });
