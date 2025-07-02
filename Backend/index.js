@@ -12,7 +12,7 @@ const generateTimeSlots = require('./config/generateTimesSlots');
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "https://pro-near-me-vzy6.vercel.app/", credentials: true }));
 app.use(express.json());
 
 app.use('/', UserRoutes);
