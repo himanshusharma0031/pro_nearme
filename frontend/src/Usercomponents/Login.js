@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
 import { NavLink } from 'react-router-dom';
+const API = "https://pro-near-me-6.onrender.com";
 
 const Login = () => {
  
@@ -22,7 +23,7 @@ const Login = () => {
       e.preventDefault();
   
       try {
-          const result = await axios.post('http://localhost:5000/login', 
+          const result = await axios.post(`${API}/login`, 
               { email, password },
               { withCredentials: true }
               
