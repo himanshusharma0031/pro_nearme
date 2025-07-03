@@ -14,7 +14,7 @@ const port = process.env.PORT || 5000;
 
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://pro-near-me-h2r6.vercel.app'],
+  origin: ['http://localhost:3000', 'https://pro-near-me.vercel.app'],
   credentials: true
 }));
 app.use(express.json());
