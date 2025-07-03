@@ -17,7 +17,8 @@ function Main() {
 
   const navigate = useNavigate(); 
   console.log(serviceType);  
-  
+    const API = "https://pro-near-me-8.onrender.com";
+
 
   const handlesearch = async (searchText) => {
     if (searchText.trim().length > 0) {  // Check if searchText is not just spaces
@@ -29,7 +30,7 @@ function Main() {
             }
 
             const response = await axios.post(
-                "http://localhost:5000/allproviders", 
+                `${API}/allproviders`, 
                 { city, serviceType: searchText },
                 {
                     headers: {

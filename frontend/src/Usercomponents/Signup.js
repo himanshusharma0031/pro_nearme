@@ -10,13 +10,14 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [city, setCity] = useState("");
   const navigate = useNavigate();
+  const API = "https://pro-near-me-8.onrender.com";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/signup",
+        `${API}/signup`,
         { name, email, password, location, city },
         { withCredentials: true }
       );

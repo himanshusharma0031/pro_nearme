@@ -10,6 +10,7 @@ function ProviderSignup() {
   const [password, setPassword] = useState("");
   const [city, setCity] = useState("");
   const [serviceType, setServiceType] = useState("");
+  const API = "https://pro-near-me-8.onrender.com";
 
   const navigate = useNavigate();
 
@@ -18,7 +19,7 @@ function ProviderSignup() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/proffesionals/signup",
+        `${API}/proffesionals/signup`,
         { name, email, password, location, city, serviceType },
         { withCredentials: true }
       );

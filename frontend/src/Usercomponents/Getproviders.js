@@ -14,6 +14,8 @@ const Getproviders = () => {
   const [avail,setavail] = useState(false);
   console.log(date,time);
   console.log(avail);
+  const API = "https://pro-near-me-8.onrender.com";
+
   
     const booking = (provider)=>{
     setshow(!show);
@@ -25,7 +27,7 @@ const Getproviders = () => {
     try{
       const token = localStorage.getItem("userToken");
       const response = await axios.post(
-    `http://localhost:5000/provider/${selectedProvider._id}/availability`,
+    `${API}/provider/${selectedProvider._id}/availability`,
         { date,time },
         {
             headers: {
@@ -50,7 +52,7 @@ const addbooking = async()=>{
   try {
     const token = localStorage.getItem("userToken");
     const response = await axios.post(
-        `http://localhost:5000/provider/${selectedProvider._id}/booking`,
+        `${API}/provider/${selectedProvider._id}/booking`,
       { date, time },
       {
         headers: {
@@ -77,7 +79,7 @@ const addbooking = async()=>{
       try {
         const token = localStorage.getItem("userToken");
         const response = await axios.post(
-          "http://localhost:5000/providersnearyou",
+          `${API}/providersnearyou`,
           { city, serviceType },
           {
             headers: {

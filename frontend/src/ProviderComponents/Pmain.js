@@ -9,6 +9,7 @@ function Pmain() {
   const { name, city, serviceType } = location.state || {};
 console.log(name,city);
 
+  const API = "https://pro-near-me-8.onrender.com";
 
   const handleLogout = () => {
     localStorage.removeItem("providerToken");

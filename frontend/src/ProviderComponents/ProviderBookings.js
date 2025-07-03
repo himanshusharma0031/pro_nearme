@@ -7,12 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 const ProviderBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
+  const API = "https://pro-near-me-8.onrender.com";
 
   const fetchProviderBookings = async () => {
     try {
       const token = localStorage.getItem("ProviderToken");
       const response = await axios.get(
-        "http://localhost:5000/proffesionals/bookings",
+        `${API}/proffesionals/bookings`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,7 +36,7 @@ const ProviderBookings = () => {
       setLoading(true);
       const token = localStorage.getItem("ProviderToken");
       const res = await axios.put(
-        `http://localhost:5000/proffesionals/bookings/update/${bookingId}`,
+        `${API}/bookings/update/${bookingId}`,
         { status: newStatus },
         {
           headers: {

@@ -5,12 +5,13 @@ import './Allbooking.css';
 
 const Allbookings = () => {
     const[data,setdata]= useState([]);
+  const API = "https://pro-near-me-8.onrender.com";
 
     const Bookings = async()=>{
         try {
         const token = localStorage.getItem("userToken");
         const response = await axios.get(
-          "http://localhost:5000/fetchbookings",
+          `${API}/fetchbookings`,
            {
             headers: {
               Authorization: `Bearer ${token}`,
