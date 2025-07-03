@@ -36,7 +36,7 @@ const ProviderBookings = () => {
       setLoading(true);
       const token = localStorage.getItem("ProviderToken");
       const res = await axios.put(
-        `${API}/bookings/update/${bookingId}`,
+        `${API}/proffesionals/bookings/update/${bookingId}`,
         { status: newStatus },
         {
           headers: {
