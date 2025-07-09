@@ -89,7 +89,7 @@ const Login = () => {
             placeholder="Enter your password"
             required
           />
-          <button onClick={changeye}>
+          <button className='eyediv' onClick={changeye}>
             {show ?
             <i className="itag" class="fa-solid fa-eye"></i>
             :<i class="fa-solid fa-eye-slash"></i>}

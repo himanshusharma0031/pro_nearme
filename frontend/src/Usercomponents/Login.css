@@ -71,6 +71,10 @@
     color: #666;
     
   }
+  .eyediv{
+    background-color: #bc4e6d;
+    font-size: 10px;
+  }
   
   .signup-btn {
     margin-top: 10px;
